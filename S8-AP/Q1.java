@@ -1,36 +1,36 @@
 import java.util.*;
-abstract class Payment {
+abstract class Customer {
     double amount;
-    Payment(double amount) {
+    Customer(double amount) {
         this.amount = amount;
     }
     abstract double calculate();
 }
-class Card extends Payment {
-    Card(double amount) {
+class Student extends Customer {
+    Student(double amount) {
         super(amount);
     }
     double calculate() {
-        return amount * 1.02;
+        return amount * 0.90;
     }
 }
-class Wallet extends Payment {
-    Wallet(double amount) {
+class Staff extends Customer {
+    Staff(double amount) {
         super(amount);
     }
     double calculate() {
-        return amount * 1.01;
+        return amount * 0.95;
     }
 }
-class BankTransfer extends Payment {
-    BankTransfer(double amount) {
+class Guest extends Customer {
+    Guest(double amount) {
         super(amount);
     }
     double calculate() {
-        return amount;
+        return amount + 10;
     }
 }
-public class Q1{
+public class Q1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -38,18 +38,18 @@ public class Q1{
         for (int i = 0; i < n; i++) {
             String type = sc.next();
             double amount = sc.nextDouble();
-            Payment p;
+            Customer c;
             switch (type) {
-                case "CARD":
-                    p = new Card(amount);
+                case "STUDENT":
+                    c = new Student(amount);
                     break;
-                case "WALLET":
-                    p = new Wallet(amount);
+                case "STAFF":
+                    c = new Staff(amount);
                     break;
                 default:
-                    p = new BankTransfer(amount);
+                    c = new Guest(amount);
             }
-            double result = p.calculate();
+            double result = c.calculate();
             System.out.printf("%s: %.2f%n", type, result);
             total += result;
         }
